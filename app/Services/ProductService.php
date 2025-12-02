@@ -15,10 +15,11 @@ class ProductService
     {
         $query = Product::with('category');
 
-        // Search by name (case-insensitive for PostgreSQL)
+        // Search by name (case-insensitive)
         if (!empty($filters['search'])) {
-            $query->where('name', 'ILIKE', '%' . $filters['search'] . '%');
+            $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($filters['search']) . '%']);
         }
+
 
         // Filter by category (ID or slug)
         if (!empty($filters['category'])) {
