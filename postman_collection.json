@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "inventory-api-collection",
 		"name": "Inventory Management API",
-		"description": "Complete API collection for the Simple Inventory Management System. Includes logout endpoint, pagination navigation, and case-insensitive search.",
+		"description": "Complete API collection for the Inventory Management System built with Node.js, Express, TypeScript, and Prisma. Includes authentication, product/category management, search, filtering, sorting, and pagination.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"auth": {
@@ -18,7 +18,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:8000/api",
+			"value": "http://localhost:3000/api",
 			"type": "string"
 		},
 		{
