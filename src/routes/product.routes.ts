@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { ProductController } from "../controllers/product.controller";
+import {
+  getAll,
+  getById,
+  create,
+  update,
+  deleteProducts,
+} from "../controllers/productController";
 import {
   createProductValidator,
   updateProductValidator,
@@ -8,34 +14,23 @@ import { authMiddleware } from "../middleware/auth.middleware";
 import { adminMiddleware } from "../middleware/admin.middleware";
 
 const router = Router();
-const productController = new ProductController();
 
 // All routes require authentication
 router.use(authMiddleware);
 
 // Get all products (with filters)
-router.get("/", productController.getAll);
+router.get("/", getAll);
 
 // Get single product
-router.get("/:id", productController.getById);
+router.get("/:id", getById);
 
 // Create product (admin only)
-router.post(
-  "/",
-  adminMiddleware,
-  createProductValidator,
-  productController.create
-);
+router.post("/", adminMiddleware, createProductValidator, create);
 
 // Update product (admin only)
-router.put(
-  "/:id",
-  adminMiddleware,
-  updateProductValidator,
-  productController.update
-);
+router.put("/:id", adminMiddleware, updateProductValidator, update);
 
 // Delete product (admin only)
-router.delete("/:id", adminMiddleware, productController.delete);
+router.delete("/:id", adminMiddleware, deleteProducts);
 
 export default router;

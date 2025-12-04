@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AuthController } from "../controllers/auth.controller";
+import { register, login, logout } from "../controllers/authController";
 import {
   registerValidator,
   loginValidator,
@@ -7,14 +7,13 @@ import {
 import { authMiddleware } from "../middleware/auth.middleware";
 
 const router = Router();
-const authController = new AuthController();
 
 // Public routes
-router.post("/register", registerValidator, authController.register);
+router.post("/register", registerValidator, register);
 
-router.post("/login", loginValidator, authController.login);
+router.post("/login", loginValidator, login);
 
 // Protected routes
-router.post("/logout", authMiddleware, authController.logout);
+router.post("/logout", authMiddleware, logout);
 
 export default router;
