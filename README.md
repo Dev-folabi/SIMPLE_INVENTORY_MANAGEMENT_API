@@ -58,7 +58,7 @@ Update `.env` with your PostgreSQL credentials:
 
 ```env
 NODE_ENV=development
-PORT=3000
+PORT=8000
 DATABASE_URL="postgresql://user:password@localhost:5432/IMA?schema=public"
 JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 JWT_EXPIRES_IN=7d
@@ -100,7 +100,7 @@ This will create:
 npm run dev
 ```
 
-The API will be available at `http://localhost:3000`
+The API will be available at `http://localhost:8000`
 
 ## 🚀 API Endpoints
 
@@ -153,7 +153,7 @@ Authorization: Bearer {token-here}
 ### Example: Login and Get Token
 
 ```bash
-curl -X POST http://localhost:3000/api/auth/login \
+curl -X POST http://localhost:8000/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "admin@inventory.test",
@@ -186,7 +186,7 @@ Response:
 **Request:**
 
 ```bash
-curl -X POST http://localhost:3000/api/products \
+curl -X POST http://localhost:8000/api/products \
   -H "Authorization: Bearer {token}" \
   -H "Content-Type: application/json" \
   -d '{
@@ -225,7 +225,7 @@ curl -X POST http://localhost:3000/api/products \
 **Request:**
 
 ```bash
-curl "http://localhost:3000/api/products?search=laptop&sort=price&order=asc" \
+curl "http://localhost:8000/api/products?search=laptop&sort=price&order=asc" \
   -H "Authorization: Bearer {token}"
 ```
 

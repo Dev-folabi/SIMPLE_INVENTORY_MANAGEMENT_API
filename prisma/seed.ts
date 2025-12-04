@@ -1,9 +1,10 @@
 import { Role } from "@prisma/client";
 import prisma from "../src/prisma";
 import bcrypt from "bcrypt";
+import logger from "../src/utils/logger.util";
 
 async function main() {
-  console.log("🌱 Starting database seed...");
+  logger.info("Starting database seed...");
 
   // Create admin user
   const adminPassword = await bcrypt.hash("password", 12);
@@ -17,7 +18,7 @@ async function main() {
       role: Role.admin,
     },
   });
-  console.log("✅ Created admin user:", admin.email);
+  logger.info("Created admin user:", admin.email);
 
   // Create regular user
   const userPassword = await bcrypt.hash("password", 12);
@@ -31,7 +32,7 @@ async function main() {
       role: Role.user,
     },
   });
-  console.log("✅ Created regular user:", user.email);
+  logger.info("Created regular user:", user.email);
 
   // Create categories
   const categories = [
@@ -50,7 +51,7 @@ async function main() {
       create: category,
     });
   }
-  console.log("✅ Created 6 categories");
+  logger.info("Created 6 categories");
 
   // Get category IDs
   const electronics = await prisma.category.findUnique({
@@ -184,14 +185,14 @@ async function main() {
   for (const product of products) {
     await prisma.product.create({ data: product });
   }
-  console.log("✅ Created 15 products");
+  logger.info("Created 15 products");
 
-  console.log("🎉 Database seeding completed!");
+  logger.info("Database seeding completed!");
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Error seeding database:", e);
+    logger.error("Error seeding database:", e);
     process.exit(1);
   })
   .finally(async () => {

@@ -1,12 +1,12 @@
-import { Router } from 'express';
-import { ProductController } from '../controllers/product.controller';
+import { Router } from "express";
+import { ProductController } from "../controllers/product.controller";
 import {
   createProductValidator,
   updateProductValidator,
-} from '../validators/product.validator';
-import { validateRequest } from '../middleware/validator.middleware';
-import { authMiddleware } from '../middleware/auth.middleware';
-import { adminMiddleware } from '../middleware/admin.middleware';
+} from "../middleware/validators/product.validator";
+import { validateRequest } from "../middleware/validator.middleware";
+import { authMiddleware } from "../middleware/auth.middleware";
+import { adminMiddleware } from "../middleware/admin.middleware";
 
 const router = Router();
 const productController = new ProductController();
@@ -15,14 +15,14 @@ const productController = new ProductController();
 router.use(authMiddleware);
 
 // Get all products (with filters)
-router.get('/', (req, res) => productController.getAll(req, res));
+router.get("/", (req, res) => productController.getAll(req, res));
 
 // Get single product
-router.get('/:id', (req, res) => productController.getById(req, res));
+router.get("/:id", (req, res) => productController.getById(req, res));
 
 // Create product (admin only)
 router.post(
-  '/',
+  "/",
   adminMiddleware,
   createProductValidator,
   validateRequest,
@@ -31,7 +31,7 @@ router.post(
 
 // Update product (admin only)
 router.put(
-  '/:id',
+  "/:id",
   adminMiddleware,
   updateProductValidator,
   validateRequest,
@@ -39,7 +39,7 @@ router.put(
 );
 
 // Delete product (admin only)
-router.delete('/:id', adminMiddleware, (req, res) =>
+router.delete("/:id", adminMiddleware, (req, res) =>
   productController.delete(req, res)
 );
 

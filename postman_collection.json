@@ -18,7 +18,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:3000/api",
+			"value": "http://localhost:8000/api",
 			"type": "string"
 		},
 		{
@@ -70,9 +70,9 @@
 							"raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"testuser@example.com\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"role\": \"user\"\n}"
 						},
 						"url": {
-							"raw": "{{base_url}}/register",
+							"raw": "{{base_url}}/auth/register",
 							"host": ["{{base_url}}"],
-							"path": ["register"]
+							"path": ["auth", "register"]
 						}
 					}
 				},
@@ -116,9 +116,9 @@
 							"raw": "{\n    \"email\": \"admin@inventory.test\",\n    \"password\": \"password\"\n}"
 						},
 						"url": {
-							"raw": "{{base_url}}/login",
+							"raw": "{{base_url}}/auth/login",
 							"host": ["{{base_url}}"],
-							"path": ["login"]
+							"path": ["auth", "login"]
 						}
 					}
 				},
@@ -161,9 +161,9 @@
 							"raw": "{\n    \"email\": \"user@inventory.test\",\n    \"password\": \"password\"\n}"
 						},
 						"url": {
-							"raw": "{{base_url}}/login",
+							"raw": "{{base_url}}/auth/login",
 							"host": ["{{base_url}}"],
-							"path": ["login"]
+							"path": ["auth", "login"]
 						}
 					}
 				},
@@ -195,9 +195,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/logout",
+							"raw": "{{base_url}}/auth/logout",
 							"host": ["{{base_url}}"],
-							"path": ["logout"]
+							"path": ["auth", "logout"]
 						},
 						"description": "Revokes the current user's access token"
 					}
@@ -442,9 +442,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/products/1",
+							"raw": "{{base_url}}/products/:id",
 							"host": ["{{base_url}}"],
-							"path": ["products", "1"]
+							"path": ["products", ":id"]
 						}
 					}
 				},
@@ -464,7 +464,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Gaming Laptop\",\n    \"description\": \"High-performance gaming laptop with RTX 4080\",\n    \"quantity\": 5,\n    \"price\": 2499.99,\n    \"category_id\": 1\n}"
+							"raw": "{\n    \"name\": \"Gaming Laptop\",\n    \"description\": \"High-performance gaming laptop with RTX 4080\",\n    \"quantity\": 5,\n    \"price\": 2499.99,\n    \"categoryId\": 1\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/products",
@@ -492,9 +492,9 @@
 							"raw": "{\n    \"name\": \"Updated Product Name\",\n    \"price\": 1899.99,\n    \"quantity\": 20\n}"
 						},
 						"url": {
-							"raw": "{{base_url}}/products/1",
+							"raw": "{{base_url}}/products/:id",
 							"host": ["{{base_url}}"],
-							"path": ["products", "1"]
+							"path": ["products", ":id"]
 						}
 					}
 				},
@@ -509,9 +509,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/products/1",
+							"raw": "{{base_url}}/products/:id",
 							"host": ["{{base_url}}"],
-							"path": ["products", "1"]
+							"path": ["products", ":id"]
 						}
 					}
 				}
