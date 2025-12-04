@@ -1,8 +1,10 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import { errorResponse } from "../utils/response.util";
+import { AuthRequest } from "../types";
+
 
 export const adminMiddleware = (
-    req: Request,
+    req: AuthRequest,
     res: Response,
     next: NextFunction
 ): void => {

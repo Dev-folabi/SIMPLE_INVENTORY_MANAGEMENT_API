@@ -1,10 +1,11 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
+import { AuthRequest } from "../types";
 import prisma from "../prisma";
 import { verifyToken } from "../utils/jwt.util";
 import { errorResponse } from "../utils/response.util";
 
 export const authMiddleware = async (
-  req: Request,
+  req: AuthRequest,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
