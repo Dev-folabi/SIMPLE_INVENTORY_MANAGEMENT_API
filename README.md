@@ -60,7 +60,7 @@ Update `.env` with your PostgreSQL credentials:
 NODE_ENV=development
 PORT=8000
 DATABASE_URL="postgresql://user:password@localhost:5432/IMA?schema=public"
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_SECRET=secret-jwt-key
 JWT_EXPIRES_IN=7d
 RATE_LIMIT_WINDOW_MS=60000
 RATE_LIMIT_MAX_REQUESTS=60
@@ -395,4 +395,4 @@ This project is open-source and available under the MIT License.
 
 ## 👤 Author
 
-Built with Node.js, Express, TypeScript, and Prisma for modern API development.
+Yusuf Afolabi - Built with Node.js, Express, TypeScript, and Prisma for modern API development.

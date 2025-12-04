@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import { validateRequest } from "../validator.middleware";
 
 export const registerValidator = [
   body("name")
@@ -32,6 +33,8 @@ export const registerValidator = [
     .optional()
     .isIn(["user", "admin"])
     .withMessage("Role must be either user or admin"),
+
+  validateRequest,
 ];
 
 export const loginValidator = [
@@ -44,4 +47,6 @@ export const loginValidator = [
     .normalizeEmail(),
 
   body("password").notEmpty().withMessage("Password is required"),
+
+  validateRequest,
 ];

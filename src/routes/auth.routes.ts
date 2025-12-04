@@ -4,24 +4,17 @@ import {
   registerValidator,
   loginValidator,
 } from "../middleware/validators/auth.validator";
-import { validateRequest } from "../middleware/validator.middleware";
 import { authMiddleware } from "../middleware/auth.middleware";
 
 const router = Router();
 const authController = new AuthController();
 
 // Public routes
-router.post("/register", registerValidator, validateRequest, (req, res) =>
-  authController.register(req, res)
-);
+router.post("/register", registerValidator, authController.register);
 
-router.post("/login", loginValidator, validateRequest, (req, res) =>
-  authController.login(req, res)
-);
+router.post("/login", loginValidator, authController.login);
 
 // Protected routes
-router.post("/logout", authMiddleware, (req, res) =>
-  authController.logout(req, res)
-);
+router.post("/logout", authMiddleware, authController.logout);
 
 export default router;

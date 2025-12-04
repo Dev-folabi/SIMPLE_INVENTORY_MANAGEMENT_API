@@ -4,7 +4,6 @@ import {
   createProductValidator,
   updateProductValidator,
 } from "../middleware/validators/product.validator";
-import { validateRequest } from "../middleware/validator.middleware";
 import { authMiddleware } from "../middleware/auth.middleware";
 import { adminMiddleware } from "../middleware/admin.middleware";
 
@@ -15,18 +14,17 @@ const productController = new ProductController();
 router.use(authMiddleware);
 
 // Get all products (with filters)
-router.get("/", (req, res) => productController.getAll(req, res));
+router.get("/", productController.getAll);
 
 // Get single product
-router.get("/:id", (req, res) => productController.getById(req, res));
+router.get("/:id", productController.getById);
 
 // Create product (admin only)
 router.post(
   "/",
   adminMiddleware,
   createProductValidator,
-  validateRequest,
-  (req, res) => productController.create(req, res)
+  productController.create
 );
 
 // Update product (admin only)
@@ -34,13 +32,10 @@ router.put(
   "/:id",
   adminMiddleware,
   updateProductValidator,
-  validateRequest,
-  (req, res) => productController.update(req, res)
+  productController.update
 );
 
 // Delete product (admin only)
-router.delete("/:id", adminMiddleware, (req, res) =>
-  productController.delete(req, res)
-);
+router.delete("/:id", adminMiddleware, productController.delete);
 
 export default router;

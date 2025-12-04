@@ -1,5 +1,5 @@
-import winston from 'winston';
-import path from 'path';
+import winston from "winston";
+import path from "path";
 
 // Define log levels
 const levels = {
@@ -12,17 +12,17 @@ const levels = {
 
 // Define colors for each level
 const colors = {
-  error: 'red',
-  warn: 'yellow',
-  info: 'green',
-  http: 'magenta',
-  debug: 'blue',
+  error: "red",
+  warn: "yellow",
+  info: "green",
+  http: "magenta",
+  debug: "blue",
 };
 
 winston.addColors(colors);
 
 const format = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
   winston.format.errors({ stack: true }),
   winston.format.splat(),
   winston.format.json()
@@ -30,10 +30,28 @@ const format = winston.format.combine(
 
 const consoleFormat = winston.format.combine(
   winston.format.colorize({ all: true }),
-  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-  winston.format.printf(
-    (info) => `${info.timestamp} [${info.level}]: ${info.message}`
-  )
+  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  winston.format.printf((info) => {
+    // For HTTP requests, format with detailed information
+    if (
+      info.level.includes("http") ||
+      info.level.includes("warn") ||
+      info.level.includes("error")
+    ) {
+      if (info.method && info.url && typeof info.status === "number") {
+        const statusColor =
+          info.status >= 500
+            ? "\x1b[31m"
+            : info.status >= 400
+            ? "\x1b[33m"
+            : "\x1b[32m";
+        const resetColor = "\x1b[0m";
+        return `${info.timestamp} [${info.level}]: ${info.method} ${info.url} ${statusColor}${info.status}${resetColor} - ${info.duration} - User: ${info.userId}`;
+      }
+    }
+    // For other logs, use simple format
+    return `${info.timestamp} [${info.level}]: ${info.message}`;
+  })
 );
 
 const transports = [
@@ -41,18 +59,18 @@ const transports = [
     format: consoleFormat,
   }),
   new winston.transports.File({
-    filename: path.join('logs', 'error.log'),
-    level: 'error',
+    filename: path.join("logs", "error.log"),
+    level: "error",
     format,
   }),
   new winston.transports.File({
-    filename: path.join('logs', 'combined.log'),
+    filename: path.join("logs", "combined.log"),
     format,
   }),
 ];
 
 const logger = winston.createLogger({
-  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  level: process.env.NODE_ENV === "production" ? "info" : "debug",
   levels,
   transports,
   exitOnError: false,

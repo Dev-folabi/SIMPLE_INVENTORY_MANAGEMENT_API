@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import { validationResult } from 'express-validator';
-import { errorResponse } from '../utils/response.util';
+import { Request, Response, NextFunction } from "express";
+import { validationResult } from "express-validator";
+import { errorResponse } from "../utils/response.util";
 
 export const validateRequest = (
   req: Request,
@@ -13,7 +13,7 @@ export const validateRequest = (
     const formattedErrors: Record<string, string[]> = {};
 
     errors.array().forEach((error) => {
-      if (error.type === 'field') {
+      if (error.type === "field") {
         const field = error.path;
         if (!formattedErrors[field]) {
           formattedErrors[field] = [];
@@ -23,7 +23,7 @@ export const validateRequest = (
     });
 
     const { response, statusCode } = errorResponse(
-      'Validation failed',
+      "Validation failed",
       formattedErrors,
       422
     );
