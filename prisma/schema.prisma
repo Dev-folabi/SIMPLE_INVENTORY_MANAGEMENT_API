@@ -53,3 +53,14 @@ model Product {
   @@index([categoryId])
   @@map("products")
 }
+
+model TokenBlacklist {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([expiresAt])
+  @@map("token_blacklist")
+}

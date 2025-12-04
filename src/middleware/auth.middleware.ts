@@ -25,6 +25,22 @@ export const authMiddleware = async (
     const token = authHeader.substring(7);
 
     try {
+      // Check if token is blacklisted
+      const { isTokenBlacklisted } = await import(
+        "../services/auth/tokenBlacklist.service"
+      );
+      const blacklisted = await isTokenBlacklisted(token);
+
+      if (blacklisted) {
+        const { response, statusCode } = errorResponse(
+          "Token has been invalidated",
+          null,
+          401
+        );
+        res.status(statusCode).json(response);
+        return;
+      }
+
       const decoded = verifyToken(token);
 
       const user = await prisma.user.findUnique({
